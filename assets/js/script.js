@@ -1,78 +1,77 @@
-// references to important DOM elements
-// const tableBody = document.querySelector(".tableBody");
-window.onload = function () {
-  const usersTable = document.getElementById("usersTable");
-  const tableRow = document.getElementById("tableRow");
-  const postSection = document.getElementById("userPosts");
-  let userLink;
-  // handle displaying user data to page
+const usersTable = document.getElementById("usersTable");
+const tableRow = document.getElementById("tableRow");
+const postSection = document.getElementById("userPosts");
+let userLink;
 
-  // handle displaying post data to page
-  function displayUsers() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => {
-        if (response.ok) return response.json();
-        else throw new Error("User data cannot be retrieved.");
-      })
-      .then((data) => {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          let rowItem = document.createElement("tr");
-          rowItem.innerHTML = `
-        
-        ${data[i].name}
-        `;
-          rowItem.dataset.userId = data[i].id;
-          rowItem.addEventListener("click", (e) => displayUserPosts(e));
-          tableRow.appendChild(rowItem);
-        }
-      });
+// Retrieve user data from api
+function getUsers() {
+  fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => {
+      if (response.ok) return response.json();
+      else throw new Error("User data cannot be retrieved.");
+    })
+    .then((data) => {
+      console.log(data);
+      renderUsers(data);
+    });
+}
+
+// Display username data to page
+function renderUsers(data) {
+  for (let i = 0; i < data.length; i++) {
+    let rowItem = document.createElement("tr");
+    let userLink = document.createElement("a");
+    userLink.innerHTML = `
+    ${data[i].name}
+    `;
+
+    userLink.dataset.userId = data[i].id;
+    userLink.addEventListener("click", (e) => getUserPosts(e));
+    rowItem.appendChild(userLink);
+    tableRow.appendChild(rowItem);
   }
+}
 
-  // handle button click
-  const usernameButton = document.getElementById("");
+// Retrieve posts from user from api
+function getUserPosts(e) {
+  // Clear previous information
+  postSection.innerHTML = "";
+  const userId = e.target.dataset.userId;
 
-  function displayUserPosts(e) {
-    postSection.innerHTML = "";
-    const userId = e.target.dataset.userId;
-    console.log(userId);
-    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
-      .then((response) => {
-        if (response.ok) return response.json();
-        else throw new Error("User data cannot be retrieved.");
-      })
-      .then((data) => {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-          let post = document.createElement("div");
-          post.classList.add("card");
-          let postCard = document.createElement("div");
-          postCard.classList.add("card-body");
+  fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+      else throw new Error("User data cannot be retrieved.");
+    })
+    .then((data) => {
+      console.log(data);
+      renderUserPosts(data);
+    });
+}
 
-          let postTitle = document.createElement("h5");
-          postTitle.classList.add("card-title");
-          let postBody = document.createElement("p");
-          postBody.classList.add("card-text");
+// Display user's posts to page
+function renderUserPosts(data) {
+  for (let i = 0; i < data.length; i++) {
+    let post = document.createElement("div");
+    post.classList.add("card");
+    let postCard = document.createElement("div");
+    postCard.classList.add("card-body");
 
-          postTitle.innerHTML = data[i].title;
-          postBody.innerHTML = data[i].body;
+    let postTitle = document.createElement("h5");
+    postTitle.classList.add("card-title");
+    let postBody = document.createElement("p");
+    postBody.classList.add("card-text");
 
-          post.appendChild(postCard);
-          postCard.appendChild(postTitle);
-          postCard.appendChild(postBody);
+    postTitle.innerHTML = data[i].title;
+    postBody.innerHTML = data[i].body;
 
-          //       post += `
-          //   <div class="card">
-          //   <div class="card-body">
-          //   <h5 class="card-title">${data[i].title}</h5>
-          //   <p class="card-text">${data[i].body}</p>
-          //   <a href="#" class="btn btn-primary">Go somewhere</a>
-          // </div>
-          //   </div>
-          //   `;
-          postSection.append(post);
-        }
-      });
+    post.appendChild(postCard);
+    postCard.appendChild(postTitle);
+    postCard.appendChild(postBody);
+
+    postSection.append(post);
   }
-  displayUsers();
-};
+}
+
+// initiatialize function
+getUsers();

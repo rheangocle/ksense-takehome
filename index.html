@@ -17,12 +17,12 @@
   <main class="container justify-content-center>
     <!-- Users table -->
     <p class="text-secondary">Click on a user's name to view their posts.</p>
-    <table class="table table-striped">
-      <thead>
-          <th scope="col" class="bg-dark text-light">Name</th>
+    <table class="table table-striped table-dark text-light w-50" style>
+      <thead class="text-center">
+          <th scope="col" class="">Name</th>
         </tr>
       </thead>
-      <tbody class="" id="usersTable">
+      <tbody class="p-2" id="usersTable">
 
       <!-- user name rows go here -->
       <tr id="tableRow">
@@ -32,8 +32,11 @@
     </table>
   </main>
 
-  <section id="userPosts" class="container d-flex flex-wrap p-2">
-
+  <section class="container d-flex flex-wrap p-2">
+    <h2>User's Posts</h2>
+    <container id="userPosts" class="container d-flex flex-wrap p-2">
+<!-- User's posts will display here after click -->
+    </container>
   </section>
 
   <script src="./assets/js/script.js"></script>
