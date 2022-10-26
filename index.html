@@ -5,21 +5,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link href="./assets/css/index.css" rel="stylesheet">
   <title>KSense Takehome</title>
 </head>
 <body>
-  <main>
-    <h1>Users:</h1>
-    <p id="testing">Testt</p>
-    <table class="users">
+  <nav class="navbar bg-info">
+    <div class="container-fluid justify-content-center">
+      <span class="navbar-brand p-2 h1">Users</span>
+    </div>
+  </nav>
+  <main class="container justify-content-center>
+    <!-- Users table -->
+    <p class="text-secondary">Click on a user's name to view their posts.</p>
+    <table class="table table-striped">
       <thead>
-        Name
+          <th scope="col" class="bg-dark text-light">Name</th>
+        </tr>
       </thead>
-      <tbody class="tableBody" id="usersTable">
-<!-- user name rows go here -->
+      <tbody class="" id="usersTable">
+
+      <!-- user name rows go here -->
+      <tr id="tableRow">
+
+      </tr>
       </tbody>
     </table>
   </main>
+
+  <section id="userPosts" class="container d-flex flex-wrap p-2">
+
+  </section>
 
   <script src="./assets/js/script.js"></script>
 </body>
