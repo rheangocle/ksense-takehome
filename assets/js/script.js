@@ -1,5 +1,4 @@
 const usersTable = document.getElementById("usersTable");
-const tableRow = document.getElementById("tableRow");
 const postSection = document.getElementById("userPosts");
 let userLink;
 
@@ -13,13 +12,17 @@ function getUsers() {
     .then((data) => {
       console.log(data);
       renderUsers(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching the data: ", error);
     });
 }
 
 // Display username data to page
 function renderUsers(data) {
   for (let i = 0; i < data.length; i++) {
-    let rowItem = document.createElement("tr");
+    let tableRow = document.createElement("tr");
+    let rowItem = document.createElement("td");
     let userLink = document.createElement("a");
     userLink.innerHTML = `
     ${data[i].name}
@@ -29,6 +32,7 @@ function renderUsers(data) {
     userLink.addEventListener("click", (e) => getUserPosts(e));
     rowItem.appendChild(userLink);
     tableRow.appendChild(rowItem);
+    usersTable.appendChild(tableRow);
   }
 }
 
@@ -46,30 +50,30 @@ function getUserPosts(e) {
     .then((data) => {
       console.log(data);
       renderUserPosts(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching posts data: ", error);
     });
 }
 
 // Display user's posts to page
 function renderUserPosts(data) {
   for (let i = 0; i < data.length; i++) {
-    let post = document.createElement("div");
-    post.classList.add("card");
     let postCard = document.createElement("div");
-    postCard.classList.add("card-body");
+    postCard.classList.add("card");
 
     let postTitle = document.createElement("h5");
-    postTitle.classList.add("card-title");
+    postTitle.classList.add("card-header", "bg-secondary");
     let postBody = document.createElement("p");
-    postBody.classList.add("card-text");
+    postBody.classList.add("card-body");
 
     postTitle.innerHTML = data[i].title;
     postBody.innerHTML = data[i].body;
 
-    post.appendChild(postCard);
     postCard.appendChild(postTitle);
     postCard.appendChild(postBody);
 
-    postSection.append(post);
+    postSection.append(postCard);
   }
 }
 

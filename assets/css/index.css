@@ -1,12 +1,9 @@
 
 .card {
   width: 16rem;
-  margin: 10px;
+  margin: 2rem;
 }
 
-.card-title {
-  background-color: bisque;
-}
 
 a:hover {
   cursor: pointer;
